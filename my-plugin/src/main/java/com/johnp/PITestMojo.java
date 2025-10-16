@@ -37,7 +37,7 @@ public class PITestMojo extends AbstractMojo {
         InvocationRequest request = new DefaultInvocationRequest();
         request.setPomFile(new File(project.getBasedir(), "pom.xml"));
         request.setGoals(Arrays.asList(
-                "clean",
+//                "clean",
                 "test-compile",
                 "org.pitest:pitest-maven:mutationCoverage"
         ));
