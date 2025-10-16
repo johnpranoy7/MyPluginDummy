@@ -10,6 +10,9 @@ import org.apache.maven.project.MavenProject;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Mojo(name = "SBFL", defaultPhase = LifecyclePhase.TEST)
 public class SBFLMojo extends AbstractMojo {
@@ -24,6 +27,17 @@ public class SBFLMojo extends AbstractMojo {
         runner = new Runner();
         try {
             getLog().info("LOLOL :outputDirectory" + project.getBuild().getDirectory());
+            try {
+                Path coverageDir = Paths.get(project.getBuild().getDirectory(), "per-test-coverage");
+                if (Files.notExists(coverageDir)) {
+                    Files.createDirectories(coverageDir);
+                    getLog().info("Created directory: " + coverageDir.toAbsolutePath());
+                } else {
+                    getLog().info("Directory already exists: " + coverageDir.toAbsolutePath());
+                }
+            } catch (IOException e) {
+                getLog().error("Failed to create per-test-coverage directory", e);
+            }
             runner.runSbfl(project.getBuild().getDirectory() + "/per-test-coverage", 1);
         } catch (IOException e) {
             throw new RuntimeException(e);
