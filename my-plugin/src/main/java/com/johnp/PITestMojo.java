@@ -37,20 +37,20 @@ public class PITestMojo extends AbstractMojo {
         InvocationRequest request = new DefaultInvocationRequest();
         request.setPomFile(new File(project.getBasedir(), "pom.xml"));
         request.setGoals(Arrays.asList(
+                "clean",
                 "test-compile",
                 "org.pitest:pitest-maven:mutationCoverage"
         ));
 
 //        // Set properties
-        Properties props = new Properties();
+//        Properties props = new Properties();
 //        props.setProperty("skipTests", "true");
-        props.setProperty("maven.test.skip", "false"); // Allow test compilation
-        props.setProperty("testFailureIgnore", "false");
+//        props.setProperty("maven.test.skip", "false"); // Allow test compilation
 //        props.setProperty("pit.reportDir", project.getBuild().getDirectory() + "/pit-reports");
 //        props.setProperty("pit.targetClasses", "com.yourpackage.*"); // Adjust as needed
 //        props.setProperty("pit.targetTests", "com.yourpackage.*Test"); // Adjust as needed
 //        props.setProperty("pit.outputFormats", "HTML,XML");
-        request.setProperties(props);
+//        request.setProperties(props);
 
         // Configure invoker
         Invoker invoker = new DefaultInvoker();
